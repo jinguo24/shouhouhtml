@@ -75,12 +75,15 @@
 					<i class="Hui-iconfont">&#xe600;</i> 新增补发
 				</a>
 				<font color="red">导出当天补发表格(前天15点到今天15点)</font>
-				<a class="btn btn-primary radius" data-title="导出当天补发表格" onclick="exportTm(this)" href="javascript:;">
+				<a class="btn btn-primary radius" data-title="导出当天补发表格" onclick="toexportpage(this)" href="javascript:;">
+					<i class="Hui-iconfont">&#xe600;</i> （导出）
+				</a>
+				<!--<a class="btn btn-primary radius" data-title="导出当天补发表格" onclick="exportTm(this)" href="javascript:;">
 					<i class="Hui-iconfont">&#xe600;</i> （天猫和拼多多）
 				</a>
 				<a class="btn btn-primary radius" data-title="导出当天补发表格" onclick="exportTb(this)" href="javascript:;">
 					<i class="Hui-iconfont">&#xe600;</i>（淘宝店）
-				</a>
+				</a>-->
 			</span> 
 			<span class="r"> <a href="javascript:;" onclick="prepage()">上一页</a>&nbsp;&nbsp;<span id="curPage"></span>/<span id="maxPage"></span>&nbsp;&nbsp;<a href="javascript:;" onclick="nextpage()">下一页</a>  共有数据：<strong id="totalcount">54</strong> 条   </span> 
 		</div>
@@ -200,6 +203,10 @@
 		
 		function addshouhou() {
 			makeNewWindow("bufa_add.html?fromparent=1");
+		}
+		
+		function toexportpage() {
+			makeNewWindow("bufa_chooseshop.html?fromparent=1");
 		}
 		
 		function toshouhoupopwindow(url) {
