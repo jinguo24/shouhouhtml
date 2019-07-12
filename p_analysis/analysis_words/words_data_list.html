@@ -41,11 +41,11 @@
 		 关键词：<input type="text" name="wordsNameLike" id="wordsNameLike" style="width:250px" class="input-text">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		创建日期：
-			<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="begindate" name="begindate" class="input-text Wdate" style="width:120px;">
+			<input type="text" onclick="WdatePicker()" id="begindate" name="begindate" class="input-text Wdate" style="width:120px;">
 			-
-			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="enddate" name="enddate" class="input-text Wdate" style="width:120px;">
+			<input type="text" onclick="WdatePicker()" id="enddate" name="enddate" class="input-text Wdate" style="width:120px;">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;			
-		</div>-->
+		</div>
 		<button name="" id="" class="btn btn-success" onclick="queryData()"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 		<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 			<span class="r"> <a href="javascript:;" onclick="prepage()">上一页</a>&nbsp;&nbsp;<span id="curPage"></span>/<span id="maxPage"></span>&nbsp;&nbsp;<a href="javascript:;" onclick="nextpage()">下一页</a>  共有数据：<strong id="totalcount">54</strong> 条   </span> 
@@ -105,7 +105,9 @@
 		}
 	
 		function queryPageData(pageIndex) {
-			$.ajax({url:"/shouhouapi/analysisWordData/list?pageNum="+pageIndex+"&pageSize=10",data:{"productId":productId,"wordsId":wordId},success:function(result){
+			var createTimeGte = $("#begindate").val();
+			var createTimeLte = $("#enddate").val();
+			$.ajax({url:"/shouhouapi/analysisWordData/list?pageNum="+pageIndex+"&pageSize=10",data:{"productId":productId,"wordsId":wordId,"begin":createTimeGte,"end":createTimeLte},success:function(result){
 				//var result="{\"code\":200,\"message\":\"success\",\"data\":{\"pageNum\":1,\"pageSize\":10,\"size\":1,\"startRow\":1,\"endRow\":1,\"total\":1,\"pages\":1,\"list\":[{\"id\":\"1\",\"ids\":null,\"sortColumns\":null,\"shop\":\"tm-lqy\",\"shops\":null,\"createTime\":\"2018-11-13 20:58:32\",\"createTimeGte\":null,\"createTimeLte\":null,\"updateTime\":\"2018-11-13 20:58:35\",\"updateTimeGte\":null,\"updateTimeLte\":null,\"createBy\":\"1\",\"updateBy\":\"1\",\"orderNo\":\"11111\",\"orderNoLike\":null,\"cusName\":\"1212\",\"transNo\":\"123123123\",\"fee\":10.00,\"reason\":\"123123123\",\"eventType\":\"123\",\"dealStatus\":1,\"dealRemark\":\"123123123\",\"miss\":1,\"orderFee\":65.26}],\"prePage\":0,\"nextPage\":0,\"isFirstPage\":true,\"isLastPage\":true,\"hasPreviousPage\":false,\"hasNextPage\":false,\"navigatePages\":8,\"navigatepageNums\":[1],\"navigateFirstPage\":1,\"navigateLastPage\":1,\"firstPage\":1,\"lastPage\":1}}";
 				//var res = JSON.parse(result);
 				var res = result;
