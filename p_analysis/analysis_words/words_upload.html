@@ -56,7 +56,8 @@
 	
 	<div class="page-container">		
 		<form method="post" action="/shouhouapi/analysisWords/uploadwords" enctype="multipart/form-data">
-		  <input type="text" name="productId" id="productId" type="hidden">
+		  <input name="productId" id="productId" type="hidden">
+		  数据日期：<input type="text" onclick="WdatePicker()" id="begindate" name="begindate" class="input-text Wdate" style="width:120px;">
 		  <input type="file" name="file">
 		  <input type="submit">
 		</form>
