@@ -33,24 +33,15 @@
 	</style>
 </head>
 <body>
-    <div>库存缺货列表<div>
+    <div>缺货处理完成历史列表<div>
 	
 	<div class="page-container">
 		<div class="text-c">
 		 <span> erp订单编号：</span>
-		 <input type="text" name="erpOrderId" id="erpOrderId" style="width:250px" class="input-text">
-		 <span> 状态：</span>
-		  <input type="radio" name="prostatus" value="0"  checked />客服待确定&nbsp;&nbsp;<input type="radio" name="prostatus" value="1"  />客服已确定
-		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	 
+		 <input type="text" name="erpOrderId" id="erpOrderId" style="width:250px" class="input-text">	 
 		 <button name="" id="" class="btn btn-success" onclick="queryData()"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 		</div>
 		<div class="cl pd-5 bg-1 bk-gray mt-20"> 
-			<span class="l">
-				<!--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>--> 
-				<a class="btn btn-primary radius" data-title="新增售后" onclick="addquehuo(this)" href="javascript:;">
-					<i class="Hui-iconfont">&#xe600;</i> 新增
-				</a>
-			</span> 
 			<span class="r"> <a href="javascript:;" onclick="prepage()">上一页</a>&nbsp;&nbsp;<span id="curPage"></span>/<span id="maxPage"></span>&nbsp;&nbsp;<a href="javascript:;" onclick="nextpage()">下一页</a>  共有数据：<strong id="totalcount">0</strong> 条   </span> 
 		</div>
 
@@ -60,7 +51,6 @@
 				<tr class="text-c">
 					<!--<th width="25"><input type="checkbox" name="" value=""></th>-->
 					<th width="80">erp订单号</th>
-					<th width="160">客服备注</th>
 					<th width="60">创建时间</th>
 					<th width="80">操作</th>
 					
@@ -104,8 +94,7 @@
 	
 		function queryPageData(pageIndex) {
 			var erpOrderId = $("#erpOrderId").val();
-			var prostatus = $("input[name='prostatus']:checked").val();
-			$.ajax({url:"/shouhouapi/shouhouQuehuo/list?pageNum="+pageIndex+"&pageSize=10",data:{"orderIdLike":erpOrderId,"handleStatus":prostatus,"finished":0,"ck":0},success:function(result){
+			$.ajax({url:"/shouhouapi/shouhouQuehuo/list?pageNum="+pageIndex+"&pageSize=10",data:{"orderIdLike":erpOrderId,"finished":1,"ck":0},success:function(result){
 				//var result="{\"code\":200,\"message\":\"success\",\"data\":{\"pageNum\":1,\"pageSize\":10,\"size\":1,\"startRow\":1,\"endRow\":1,\"total\":1,\"pages\":1,\"list\":[{\"id\":\"1\",\"ids\":null,\"sortColumns\":null,\"shop\":\"tm-lqy\",\"shops\":null,\"createTime\":\"2018-11-13 20:58:32\",\"createTimeGte\":null,\"createTimeLte\":null,\"updateTime\":\"2018-11-13 20:58:35\",\"updateTimeGte\":null,\"updateTimeLte\":null,\"createBy\":\"1\",\"updateBy\":\"1\",\"orderNo\":\"11111\",\"orderNoLike\":null,\"cusName\":\"1212\",\"transNo\":\"123123123\",\"fee\":10.00,\"reason\":\"123123123\",\"eventType\":\"123\",\"dealStatus\":1,\"dealRemark\":\"123123123\",\"miss\":1,\"orderFee\":65.26}],\"prePage\":0,\"nextPage\":0,\"isFirstPage\":true,\"isLastPage\":true,\"hasPreviousPage\":false,\"hasNextPage\":false,\"navigatePages\":8,\"navigatepageNums\":[1],\"navigateFirstPage\":1,\"navigateLastPage\":1,\"firstPage\":1,\"lastPage\":1}}";
 				//var res = JSON.parse(result);
 				var res = result;
@@ -118,15 +107,9 @@
 					maxPage = res.data.pages;
 					for (var i = 0 ; i < res.data.list.length; i++) {
 						var trdata = res.data.list[i];
-						var editstr="";
-						if (trdata.handleStatus==0) {
-							editstr = "<a href = \"javascript:;\" onclick=\"toshouhoupopwindow('quehuo_ck_update.html?id="+trdata.id+"')\">修改</a>&nbsp;<a href = \"javascript:;\" onclick=\"todeldata('"+trdata.id+"')\">删除</a>";							
-						}else if (trdata.handleStatus==1) {
-							editstr = "<a href = \"javascript:;\" onclick=\"toshouhoupopwindow('quehuo_ckbz_update.html?id="+trdata.id+"')\">修改</a>&nbsp;<a href = \"javascript:;\" onclick=\"findished('"+trdata.id+"')\">发货</a>";
-						}
+						var editstr="<a href = \"javascript:;\" onclick=\"toshouhoupopwindow('quehuo_detail.html?id="+trdata.id+"')\">详情</a>&nbsp;&nbsp;<a href = \"javascript:;\" onclick=\"todeldata('"+trdata.id+"')\">删除</a>";
 						var trhtml = "<tr class=\"text-c\">" +
 											"<td>"+trdata.orderId+"</td>" +
-											"<td>"+trdata.kfRemark+"</td>"+
 											"<td>"+trdata.createTime+"</td>"+
 											"<td class=\"f-14 td-manage\">"+	editstr+										
 											"</tr>";
@@ -135,10 +118,6 @@
 					$("#restable").html(tablehtml);
 				}
 			}});
-		}
-		
-		function addquehuo() {
-			makeNewWindow("quehuo_ck_add.html?fromparent=1");
 		}
 		
 		function toshouhoupopwindow(url) {
@@ -159,18 +138,7 @@
 				newWindow.focus();
 			}
 		}
-	
-		function findished (id) {
-				$.ajax({url:"/shouhouapi/shouhouQuehuo/deliver?id="+id,data:{},success:function(result){
-				//var result="{\"code\":200,\"message\":\"success\",\"data\":{\"pageNum\":1,\"pageSize\":10,\"size\":1,\"startRow\":1,\"endRow\":1,\"total\":1,\"pages\":1,\"list\":[{\"id\":\"1\",\"ids\":null,\"sortColumns\":null,\"shop\":\"tm-lqy\",\"shops\":null,\"createTime\":\"2018-11-13 20:58:32\",\"createTimeGte\":null,\"createTimeLte\":null,\"updateTime\":\"2018-11-13 20:58:35\",\"updateTimeGte\":null,\"updateTimeLte\":null,\"createBy\":\"1\",\"updateBy\":\"1\",\"orderNo\":\"11111\",\"orderNoLike\":null,\"cusName\":\"1212\",\"transNo\":\"123123123\",\"fee\":10.00,\"reason\":\"123123123\",\"eventType\":\"123\",\"dealStatus\":1,\"dealRemark\":\"123123123\",\"miss\":1,\"orderFee\":65.26}],\"prePage\":0,\"nextPage\":0,\"isFirstPage\":true,\"isLastPage\":true,\"hasPreviousPage\":false,\"hasNextPage\":false,\"navigatePages\":8,\"navigatepageNums\":[1],\"navigateFirstPage\":1,\"navigateLastPage\":1,\"firstPage\":1,\"lastPage\":1}}";
-				//var res = JSON.parse(result);
-				var res = result;
-				if(res.code==200 || res.code=='200') {
-					alert("success！");
-					window.location.href="quehuo_ck_list.html";
-				}}});
-		}
-	
+		
 		function todeldata(id) {
 			if (window.confirm("删除无法恢复，确认吗?")) {
 				$.ajax({url:"/shouhouapi/shouhouQuehuo/del?id="+id,data:{},success:function(result){

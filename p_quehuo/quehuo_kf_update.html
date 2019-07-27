@@ -57,17 +57,22 @@
 	<div class="page-container">		
 		<div class="text-c">
 			<span>erp订单编号：</span>
-			<span><input type="text" name="orderId" id="orderId" style="width:250px" class="input-text"></span>
+			<span id="orderId"></span>
 		</div>	
 		<div style="height:10px"></div>
 		<div class="text-c">
 			<span>仓库备注：</span>
-			<span><input type="text" name="ckRemark" id="ckRemark" style="width:250px" class="input-text"></span>
+			<span id="ckRemark"></span>
 		</div>	
 		<div style="height:10px"></div>
 	    <div class="text-c">
 			<span>客服备注：</span>
 			<span><input type="text" name="kfRemark" id="kfRemark" style="width:250px" class="input-text"></span>
+		</div>	
+		<div style="height:10px"></div>
+		<div class="text-c">
+			<span>创建时间：</span>
+			<span id="createtime"></span>
 		</div>	
 		<div style="height:10px"></div>
 		<div class="text-c">
@@ -88,11 +93,10 @@
 			//var res = JSON.parse(result);
 			var res = result;
 			if(res.data) {	
-				$("#orderId").val(res.data.orderId);
-				$("#orderId").attr("readonly",true);
-				$("#ckRemark").val(res.data.ckRemark);
-				$("#ckRemark").attr("readonly",true);
+				$("#orderId").text(res.data.orderId);				
+				$("#ckRemark").text(res.data.ckRemark);				
 				$("#kfRemark").val(res.data.kfRemark);
+				$("#createtime").text(res.data.createTime);
 			}else {
 			}
 	

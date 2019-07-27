@@ -57,12 +57,17 @@
 	<div class="page-container">		
 		<div class="text-c">
 			<span>erp订单编号：</span>
-			<span><input type="text" name="orderId" id="orderId" style="width:250px" class="input-text"></span>
+			<span id="orderId"></span>
 		</div>	
 		<div style="height:10px"></div>
 		<div class="text-c">
 			<span>仓库备注：</span>
-			<span><input type="text" name="ckRemark" id="ckRemark" style="width:250px" class="input-text"></span>
+			<span id="ckRemark"></span>
+		</div>	
+		<div style="height:10px"></div>
+	    <div class="text-c">
+			<span>客服备注：</span>
+			<span id="kfRemark"></span>
 		</div>	
 		<div style="height:10px"></div>
 		<div class="text-c">
@@ -71,8 +76,9 @@
 		</div>	
 		<div style="height:10px"></div>
 		<div class="text-c">
-			<button id="savebtn" type="button" onclick="savedata()" class="button">保存</button>
-		</div>
+			<span>更新时间：</span>
+			<span id="updatetime"></span>
+		</div>			
 		
 
 	</div>
@@ -88,31 +94,17 @@
 			//var res = JSON.parse(result);
 			var res = result;
 			if(res.data) {	
-				$("#orderId").val(res.data.orderId);
-				$("#ckRemark").val(res.data.ckRemark);
+				$("#orderId").text(res.data.orderId);				
+				$("#ckRemark").text(res.data.ckRemark);				
+				$("#kfRemark").text(res.data.kfRemark);
 				$("#createtime").text(res.data.createTime);
+				$("#updatetime").text(res.data.updateTime);
 			}else {
 			}
 	
 		  }});
 		  	  
 		});
-		
-		function savedata() {
-			var orderId=$("#orderId").val();
-			var ckRemark = $("#ckRemark").val();
-			$.ajax({type: 'POST',url: "/shouhouapi/shouhouQuehuo/update",data:{"id":id,"orderId":orderId,"ckRemark":ckRemark},
-			  success: function(data){
-				if(data.code==200) {
-					alert("success!");
-					window.location.href="quehuo_ck_list.html";
-				}else {
-					alert(data.message);
-				}
-			  },
-			  dataType: "json"
-			});
-		}
 		
 	
 	

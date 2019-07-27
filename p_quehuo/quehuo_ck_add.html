@@ -55,13 +55,13 @@
     <div style="text-align:center;font-size:20px;color:red">缺货添加</div>	
 	<div class="page-container">		
 		<div class="text-c">
-			<span>名称：</span>
-			<span><input type="text" name="productname" id="productname" style="width:250px" class="input-text"></span>
+			<span>erp订单编号：</span>
+			<span><input type="text" name="orderId" id="orderId" style="width:250px" class="input-text"></span>
 		</div>	
 		<div style="height:10px"></div>
 		<div class="text-c">
-			<span>备注：</span>
-			<span><input type="text" name="remark" id="remark" style="width:250px" class="input-text"></span>
+			<span>仓库备注：</span>
+			<span><input type="text" name="ckRemark" id="ckRemark" style="width:250px" class="input-text"></span>
 		</div>
 		<div style="height:10px"></div>
 		<div class="text-c">
@@ -78,13 +78,13 @@
 		});
 		
 		function savedata() {
-			var productname=$("#productname").val();
-			var remark = $("#remark").val();
-			$.ajax({type: 'POST',url: "/shouhouapi/shouhouQuehuo/add",data:{"productName":productname,"remark":remark},
+			var orderId=$("#orderId").val();
+			var ckRemark = $("#ckRemark").val();
+			$.ajax({type: 'POST',url: "/shouhouapi/shouhouQuehuo/add",data:{"orderId":orderId,"ckRemark":ckRemark},
 			  success: function(data){
 				if(data.code==200) {
 					alert("success!");
-					window.location.href="quehuo_list.html";
+					window.location.href="quehuo_ck_list.html";
 				}else {
 					alert(data.message);
 				}
