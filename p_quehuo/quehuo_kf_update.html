@@ -56,17 +56,22 @@
 	
 	<div class="page-container">		
 		<div class="text-c">
-			<span>名称：</span>
-			<span><input type="text" name="productname" id="productname" style="width:250px" class="input-text"></span>
+			<span>erp订单编号：</span>
+			<span><input type="text" name="orderId" id="orderId" style="width:250px" class="input-text"></span>
 		</div>	
 		<div style="height:10px"></div>
 		<div class="text-c">
-			<span>备注：</span>
-			<span><input type="text" name="remark" id="remark" style="width:250px" class="input-text"></span>
+			<span>仓库备注：</span>
+			<span><input type="text" name="ckRemark" id="ckRemark" style="width:250px" class="input-text"></span>
+		</div>	
+		<div style="height:10px"></div>
+	    <div class="text-c">
+			<span>客服备注：</span>
+			<span><input type="text" name="kfRemark" id="kfRemark" style="width:250px" class="input-text"></span>
 		</div>	
 		<div style="height:10px"></div>
 		<div class="text-c">
-			<button id="savebtn" type="button" onclick="savedata()" class="button">保存</button>
+			<button id="savebtn" type="button" onclick="savedata()" class="button">已确定并提交仓库</button>
 		</div>
 		
 
@@ -83,8 +88,11 @@
 			//var res = JSON.parse(result);
 			var res = result;
 			if(res.data) {	
-				$("#productname").val(res.data.productName);
-				$("#remark").val(res.data.remark);
+				$("#orderId").val(res.data.orderId);
+				$("#orderId").attr("readonly",true);
+				$("#ckRemark").val(res.data.ckRemark);
+				$("#ckRemark").attr("readonly",true);
+				$("#kfRemark").val(res.data.kfRemark);
 			}else {
 			}
 	
@@ -93,13 +101,12 @@
 		});
 		
 		function savedata() {
-			var productname=$("#productname").val();
-			var remark = $("#remark").val();
-			$.ajax({type: 'POST',url: "/shouhouapi/shouhouQuehuo/update",data:{"id":id,"productName":productname,"remark":remark},
+			var kfRemark = $("#kfRemark").val();
+			$.ajax({type: 'POST',url: "/shouhouapi/shouhouQuehuo/update",data:{"id":id,"kfRemark":kfRemark,"handleStatus":1},
 			  success: function(data){
 				if(data.code==200) {
 					alert("success!");
-					window.location.href="quehuo_list.html";
+					window.location.href="quehuo_kf_list.html";
 				}else {
 					alert(data.message);
 				}
