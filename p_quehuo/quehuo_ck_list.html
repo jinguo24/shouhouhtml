@@ -40,7 +40,7 @@
 		 <span> erp订单编号：</span>
 		 <input type="text" name="erpOrderId" id="erpOrderId" style="width:250px" class="input-text">
 		 <span> 状态：</span>
-		  <input type="radio" name="prostatus" value="0"  checked />客服待确定&nbsp;&nbsp;<input type="radio" name="prostatus" value="1"  />客服已确定
+		  <input type="radio" name="prostatus" value="0"   />客服待确定&nbsp;&nbsp;<input type="radio" name="prostatus" value="1"  checked/>客服已确定
 		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	 
 		 <button name="" id="" class="btn btn-success" onclick="queryData()"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 		</div>
@@ -120,7 +120,7 @@
 						var trdata = res.data.list[i];
 						var editstr="";
 						if (trdata.handleStatus==0) {
-							editstr = "<a href = \"javascript:;\" onclick=\"toshouhoupopwindow('quehuo_ck_update.html?id="+trdata.id+"')\">修改</a>&nbsp;<a href = \"javascript:;\" onclick=\"todeldata('"+trdata.id+"')\">删除</a>";							
+							editstr = "<a href = \"javascript:;\" onclick=\"toshouhoupopwindow('quehuo_ck_update.html?id="+trdata.id+"')\">修改</a></a>&nbsp;<a href = \"javascript:;\" onclick=\"findished('"+trdata.id+"')\">结单</a>&nbsp;<a href = \"javascript:;\" onclick=\"todeldata('"+trdata.id+"')\">删除";							
 						}else if (trdata.handleStatus==1) {
 							editstr = "<a href = \"javascript:;\" onclick=\"toshouhoupopwindow('quehuo_ckbz_update.html?id="+trdata.id+"')\">修改</a>&nbsp;<a href = \"javascript:;\" onclick=\"findished('"+trdata.id+"')\">结单</a>";
 						}
