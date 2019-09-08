@@ -33,7 +33,7 @@
 	</style>
 </head>
 <body>
-    <div>成本列表<div>
+    <div>成本列表<a onclick="toexportpage(this)"href="javascript:;" >e</a><div>
 	
 	<div class="page-container">
 		<div class="text-c">
@@ -41,13 +41,12 @@
 		</div>
 		<button name="" id="" class="btn btn-success" onclick="queryData()"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">  
-				<a class="btn btn-primary radius" data-title="导出" onclick="toexportpage(this)" href="javascript:;">
-					<i class="Hui-iconfont">&#xe600;</i> （导出）
-				</a>
 				<a class="btn btn-primary radius" data-title="导入" onclick="toimportpage(this)" href="javascript:;">
-					<i class="Hui-iconfont">&#xe600;</i> （导入）
+					<i class="Hui-iconfont">&#xe600;</i> （导入价格表）
 				</a>
-
+				<a class="btn btn-primary radius" data-title="导入" onclick="toimportcheckpage(this)" href="javascript:;">
+					<i class="Hui-iconfont">&#xe600;</i> （导入检查）
+				</a>
 			<span class="r"> <a href="javascript:;" onclick="prepage()">上一页</a>&nbsp;&nbsp;<span id="curPage"></span>/<span id="maxPage"></span>&nbsp;&nbsp;<a href="javascript:;" onclick="nextpage()">下一页</a>  共有数据：<strong id="totalcount">54</strong> 条   </span> 
 		</div>
 
@@ -152,6 +151,10 @@
 		
 		function toimportpage() {
 			makeNewWindow("/p_cost/cost_upload.html??");
+		}
+		
+		function toimportcheckpage() {
+			makeNewWindow("/p_cost/cost_upload_check.html??");
 		}
 		
 	</script>
